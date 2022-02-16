@@ -34,9 +34,9 @@ def reverse_link(link):
     >>> reverse_link(get_link((1, 2, 3)))
     (3, (2, (1, None)))
     '''
-    prv, cur, nxt = None, link, link.tail if link else None
-    while cur:
-        pprv = prv
-        prv, cur, nxt = cur, nxt, nxt.tail if nxt else None
-        prv.tail = pprv
-    return prv
+    _prev, _cur = None, link
+    while _cur:
+        _next = _cur.tail
+        _cur.tail = _prev
+        _prev, _cur = _cur, _next
+    return _prev
