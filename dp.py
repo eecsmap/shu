@@ -303,3 +303,39 @@ def allConstruct_tab(target, wordBank):
     []
     """
     "YOUR CODE HERE"
+
+# M(d, k) = M(d, k - 1) + M(d - 1, k)
+
+def egg(d, k):
+    '''
+    >>> egg(1, 1)
+    1
+    >>> egg(1, 2)
+    1
+    >>> egg(2, 1)
+    2
+    >>> egg(100, 1)
+    100
+    >>> egg(100, 2)
+    5050
+    >>> egg(100, 3)
+    171700
+    '''
+    tab = [[0 for i in range(d + 1)] for j in range(k + 1)]
+    for j in range(k + 1):
+        tab[j][0] = 0
+    for i in range(d + 1):
+        tab[0][i] = 1
+    for j in range(1, k + 1):
+        for i in range(1, d + 1):
+            tab[j][i] = tab[j - 1][i] + tab[j][i - 1]
+    return tab[k][d]
+
+
+def egg_recur(d, k):
+    if d == 1:
+        return 1
+    if k == 1:
+        return d
+    return egg(d, k - 1) + egg(d - 1, k)
+
